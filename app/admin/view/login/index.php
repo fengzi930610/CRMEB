@@ -54,7 +54,7 @@
     </div>
 </div>
 <div class="footer" style=" position: fixed;bottom: 0;width: 100%;left: 0;margin: 0;opacity: 0.8;">
-    <div class="pull-right">© 2017-2019 <a href="http://www.crmeb.com/" target="_blank">CRMEB</a>
+    <div class="pull-right">© 2017-2019
     </div>
 </div>
 
