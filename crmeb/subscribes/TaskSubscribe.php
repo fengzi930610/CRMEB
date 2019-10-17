@@ -10,7 +10,6 @@ use app\models\user\UserToken;
 /**
  * 定时任务类
  * Class TaskSubscribe
- * @package crmeb\subscribes
  */
 class TaskSubscribe
 {

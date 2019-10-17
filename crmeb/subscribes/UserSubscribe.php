@@ -11,7 +11,6 @@ use app\models\user\UserLevel;
 /**
  * 用户事件
  * Class UserSubscribe
- * @package crmeb\subscribes
  */
 class UserSubscribe
 {

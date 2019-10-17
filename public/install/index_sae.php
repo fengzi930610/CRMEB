@@ -29,8 +29,8 @@ if (!file_exists(SITEDIR . 'install/CRMEB.sql' ) || !file_exists(SITEDIR . 'inst
     echo '缺少必要的安装文件!';
     exit;
 }
-$Title = "CRMEB安装向导";
-$Powered = "Powered by CRMEB";
+$Title = "安装向导";
+$Powered = "Powered by";
 $steps = array(
     '1' => '安装许可协议',
     '2' => '运行环境检测',

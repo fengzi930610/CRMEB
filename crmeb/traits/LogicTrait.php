@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by CRMEB.
- * User: 136327134@qq.com
- * Date: 2019/4/9 16:50
- */
 
 namespace crmeb\traits;
 

@@ -12,7 +12,6 @@ use think\exception\DbException;
 
 /**
  * Class UserRepository
- * @package crmeb\repositories
  */
 class UserRepository
 {
