@@ -58,7 +58,8 @@ class PublicController
         $info['firstInfo'] = $routine_index_page[0]['first_info'] ?? '';//SystemConfigService::get('first_info');//TODO 首发新品简介
         $info['salesInfo'] = $routine_index_page[0]['sales_info'] ?? '';//SystemConfigService::get('sales_info');//TODO 促销单品简介
         $logoUrl = SystemConfigService::get('routine_index_logo');//TODO 促销单品简介
-        if (strstr($logoUrl, 'http') === false) $logoUrl = SystemConfigService::get('site_url') . $logoUrl;
+        if (strstr($logoUrl, 'http') === false) 
+			$logoUrl = SystemConfigService::get('site_url').$logoUrl;
         $logoUrl = str_replace('\\', '/', $logoUrl);
         $fastNumber = $routine_index_page[0]['fast_number'] ?? 6;//SystemConfigService::get('fast_number');//TODO 快速选择分类个数
         $bastNumber = $routine_index_page[0]['bast_number'] ?? 6;//SystemConfigService::get('bast_number');//TODO 精品推荐个数
