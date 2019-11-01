@@ -16,10 +16,6 @@
     <script type="text/javascript" src="{__ADMIN_PATH}plug/umeditor/lang/zh-cn/zh-cn.js"></script>
     <link href="{__PLUG_PATH}layui/css/layui.css" rel="stylesheet">
     <script src="{__PLUG_PATH}layui/layui.all.js"></script>
-	
-	<script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/static/lib/layer/2.4/layer.js"></script>
-	<link rel="stylesheet" type="text/css" href="/static/lib/Hui-iconfont/1.0.8/iconfont.css" />
     <style>
         .edui-btn-toolbar .edui-btn.edui-active .edui-icon-fullscreen.edui-icon{  display: none;}
         .edui-container{overflow: initial !important;}
@@ -47,7 +43,7 @@
     $('.dim').on('click',function(){
         $eb.axios.post($(this).data('url'),{'{$field}':getContent()}).then(function(res){
             if(res.status == 200 && res.data.code == 200){
-				layer.msg('保存成功!',{icon:6,time:2000});
+                $eb.message('success','保存成功!');
             } else
                 return Promise.reject(res.data.msg || '保存失败!');
         }).catch(function(err){

@@ -32,77 +32,31 @@ class PublicController
      */
     public function index(Request $request)
     {
-		$host = "http://".$_SERVER['HTTP_HOST'];
         $banner = GroupDataService::getData('routine_home_banner') ?: [];//TODO 首页banner图
-		if( $banner ){
-			foreach( $banner as $key=>$val){
-				$banner[$key]["pic"] = preg_match('/^[http].*$/u',$banner[$key]["pic"])?$banner[$key]["pic"]:$host.$banner[$key]["pic"];
-			}
-		}
         $menus = GroupDataService::getData('routine_home_menus') ?: [];//TODO 首页按钮
-		if( $menus ){
-			foreach( $menus as $key=>$val){
-				$menus[$key]["pic"] = preg_match('/^[http].*$/u',$menus[$key]["pic"])?$menus[$key]["pic"]:$host.$menus[$key]["pic"];
-			}
-		}
         $roll = GroupDataService::getData('routine_home_roll_news') ?: [];//TODO 首页滚动新闻
         $activity = GroupDataService::getData('routine_home_activity', 3) ?: [];//TODO 首页活动区域图片
-		if( $activity ){
-			foreach( $activity as $key=>$val){
-				$activity[$key]["pic"] = preg_match('/^[http].*$/u',$activity[$key]["pic"])?$activity[$key]["pic"]:$host.$activity[$key]["pic"];
-			}
-		}
+        $site_name = SystemConfigService::get('site_name');
         $routine_index_page = GroupDataService::getData('routine_index_page');
         $info['fastInfo'] = $routine_index_page[0]['fast_info'] ?? '';//SystemConfigService::get('fast_info');//TODO 快速选择简介
         $info['bastInfo'] = $routine_index_page[0]['bast_info'] ?? '';//SystemConfigService::get('bast_info');//TODO 精品推荐简介
         $info['firstInfo'] = $routine_index_page[0]['first_info'] ?? '';//SystemConfigService::get('first_info');//TODO 首发新品简介
         $info['salesInfo'] = $routine_index_page[0]['sales_info'] ?? '';//SystemConfigService::get('sales_info');//TODO 促销单品简介
         $logoUrl = SystemConfigService::get('routine_index_logo');//TODO 促销单品简介
-        if (strstr($logoUrl, 'http') === false) 
-			$logoUrl = SystemConfigService::get('site_url').$logoUrl;
+        if (strstr($logoUrl, 'http') === false) $logoUrl = SystemConfigService::get('site_url') . $logoUrl;
         $logoUrl = str_replace('\\', '/', $logoUrl);
         $fastNumber = $routine_index_page[0]['fast_number'] ?? 6;//SystemConfigService::get('fast_number');//TODO 快速选择分类个数
         $bastNumber = $routine_index_page[0]['bast_number'] ?? 6;//SystemConfigService::get('bast_number');//TODO 精品推荐个数
         $firstNumber = $routine_index_page[0]['first_number'] ?? 6;//SystemConfigService::get('first_number');//TODO 首发新品个数
         $info['fastList'] = StoreCategory::byIndexList((int)$fastNumber);//TODO 快速选择分类个数
         $info['bastList'] = StoreProduct::getBestProduct('id,image,store_name,cate_id,price,ot_price,IFNULL(sales,0) + IFNULL(ficti,0) as sales,unit_name', (int)$bastNumber, $request->uid());//TODO 精品推荐个数
-		if( $info['bastList'] ){
-			foreach( $info['bastList'] as $key=>$val){
-				$info['bastList'][$key]["image"] = preg_match('/^[http].*$/u',$info['bastList'][$key]["image"])?$info['bastList'][$key]["image"]:$host.$info['bastList'][$key]["image"];
-			}
-		}
-		
-        $info['firstList'] = StoreProduct::getNewProduct('id,image,store_name,cate_id,price,unit_name', (int)$firstNumber);//TODO 首发新品个数
-		if( $info['firstList'] ){
-			foreach( $info['firstList'] as $key=>$val){
-				$info['firstList'][$key]["image"] = preg_match('/^[http].*$/u',$info['firstList'][$key]["image"])?$info['firstList'][$key]["image"]:$host.$info['firstList'][$key]["image"];
-			}
-		}
-		
-        $info['bastBanner'] = GroupDataService::getData('routine_home_bast_banner') ?: [];//TODO 首页精品推荐图片
-		if( $info['bastBanner'] ){
-			foreach( $info['bastBanner'] as $key=>$val){
-				$info['bastBanner'][$key]["img"] = preg_match('/^[http].*$/u',$info['bastBanner'][$key]["img"])?$info['bastBanner'][$key]["img"]:$host.$info['bastBanner'][$key]["img"];
-			}
-		}
+        $info['firstList'] = StoreProduct::getNewProduct('id,image,store_name,cate_id,price,unit_name,IFNULL(sales,0) + IFNULL(ficti,0) as sales', (int)$firstNumber,$request->uid());//TODO 首发新品个数
+        $info['bastBanner'] = GroupDataService::getData('routine_home_bast_banner') ?? [];//TODO 首页精品推荐图片
         $benefit = StoreProduct::getBenefitProduct('id,image,store_name,cate_id,price,ot_price,stock,unit_name', 3);//TODO 首页促销单品
         $lovely = GroupDataService::getData('routine_home_new_banner') ?: [];//TODO 首发新品顶部图
-		if( $lovely ){
-			foreach( $lovely as $key=>$val){
-				$lovely[$key]["img"] = preg_match('/^[http].*$/u',$lovely[$key]["img"])?$lovely[$key]["img"]:$host.$lovely[$key]["img"];
-			}
-		}
-		
         $likeInfo = StoreProduct::getHotProduct('id,image,store_name,cate_id,price,unit_name', 3);//TODO 热门榜单 猜你喜欢
-		if( $likeInfo ){
-			foreach( $likeInfo as $key=>$val){
-				$likeInfo[$key]["image"] = preg_match('/^[http].*$/u',$likeInfo[$key]["image"])?$likeInfo[$key]["image"]:$host.$likeInfo[$key]["image"];
-			}
-		}
-		
         $couponList = StoreCouponIssue::getIssueCouponList($request->uid(), 3);
-
-        return app('json')->successful(compact('banner', 'menus', 'roll', 'info', 'activity', 'lovely', 'benefit', 'likeInfo', 'logoUrl', 'couponList'));
+        return app('json')->successful(compact('banner', 'menus', 'roll', 'info', 'activity', 'lovely', 'benefit', 'likeInfo', 'logoUrl', 'couponList','site_name'));
     }
 
     /**
@@ -138,6 +92,9 @@ class PublicController
                 unset($menusInfo[$key]);
             if($value['id'] == 174 && !StoreService::orderServiceStatus($user->uid))
                 unset($menusInfo[$key]);
+            if(!StoreService::orderServiceStatus($user->uid) && $value['wap_url'] === '/order/order_cancellation'){
+                unset($menusInfo[$key]);
+            }
         }
         return app('json')->successful(['routine_my_menus'=>$menusInfo]);
     }
@@ -175,14 +132,18 @@ class PublicController
         ],$request);
         if(!$data['filename']) return app('json')->fail('参数有误');
         if(Cache::has('start_uploads_'.$request->uid()) && Cache::get('start_uploads_'.$request->uid()) >= 100) return app('json')->fail('非法操作');
-        $res = UploadService::image($data['filename'],'store/comment');
+        $res = UploadService::getInstance()->setUploadPath('store/comment')->image($data['filename']);
         if(!is_array($res)) return app('json')->fail($res);
         SystemAttachment::attachmentAdd($res['name'], $res['size'], $res['type'], $res['dir'], $res['thumb_path'],1, $res['image_type'], $res['time'], 2);
-        if(Cache::has('start_uploads_'.$request->uid())) $start_uploads=(int)Cache::get('start_uploads_'.$request->uid());
-        else $start_uploads = 0;
+        if(Cache::has('start_uploads_'.$request->uid()))
+            $start_uploads=(int)Cache::get('start_uploads_'.$request->uid());
+        else
+            $start_uploads = 0;
         $start_uploads++;
         Cache::set('start_uploads_'.$request->uid(),$start_uploads,86400);
-        return app('json')->successful('图片上传成功!', ['name' => $res['name'], 'url' => $request->domain() . UploadService::pathToUrl($res['dir'])]);
+        $res['dir'] = UploadService::pathToUrl($res['dir']);
+        if(strpos($res['dir'],'http') === false) $res['dir'] = $request->domain().$res['dir'];
+        return app('json')->successful('图片上传成功!', ['name' => $res['name'], 'url' => $res['dir']]);
     }
 
     /**
@@ -219,13 +180,35 @@ class PublicController
         return app('json')->fail();
     }
 
-    /*
+    /**
      * 记录用户分享
-     * @return json
-     * */
+     * @param Request $request
+     * @return mixed
+     */
     public function user_share(Request $request){
-        return app('json')->successful(UserBill::setUserShare($request->uid));
+        return app('json')->successful(UserBill::setUserShare($request->uid()));
     }
+
+    /**
+     * 获取图片base64
+     * @param Request $request
+     * @return mixed
+     */
+    public function get_image_base64(Request $request){
+        list($imageUrl,$codeUrl) = UtilService::postMore([
+            ['image',''],
+            ['code',''],
+        ],$request,true);
+        try{
+            $code = $codeUrl ? UtilService::setImageBase64($codeUrl) : false;
+            $image = $imageUrl ? UtilService::setImageBase64($imageUrl) : false;
+            return app('json')->successful(compact('code','image'));
+        }catch (\Exception $e){
+            return app('json')->fail($e->getMessage());
+        }
+    }
+
+
 
 
 }

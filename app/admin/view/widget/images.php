@@ -124,7 +124,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-card-body clearfix image-box" style="padding: 10px;">
+                    <div class="layui-card-body clearfix image-box" style="padding: 10px;height: 360px;z-index:10;">
                         <div class="layui-col-md2 layui-col-xs2 layui-col-sm2 image" v-for="(item,index) in imageList">
                             <div class="layui-img-box"  :class="item.isSelect ? 'on': '' ">
                                 <img :src="item.att_dir" v-if="small == 1" @click="changImage(item,index)">
@@ -203,9 +203,9 @@
                 //判断表单限制图片个数
                 if(typeof parent.$f != 'undefined'){
                     //已有图片个数
-                    var nowpics = parent.$f.getValue(parentinputname).length;
-                    //设置最大个数
-                    var maxlength = parent.$f.model()[parentinputname].props.maxLength;
+                    var nowpics = parent.$f.getValue(parentinputname).length,
+                        props = parent.$f.model()[parentinputname].props || {},
+                        maxlength = props.maxLength || 0;
                     //已选图片个数
                     var selectlength = this.selectImages.length;
                     //还可以选择多少张

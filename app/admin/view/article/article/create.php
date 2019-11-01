@@ -19,7 +19,7 @@
 {block name="content"}
 <div class="row">
    <div class="col-sm-12 panel panel-default" >
-       <div class="panel-body">
+       <div class="panel-body" style="padding: 30px">
            <form class="form-horizontal" id="signupForm">
                <div class="form-group">
                    <div class="col-md-12">
@@ -135,6 +135,7 @@
        </div>
    </div>
 </div>
+<script src="{__ADMIN_PATH}js/layuiList.js"></script>
 {/block}
 {block name="script"}
 <script>
@@ -265,23 +266,32 @@
                     }
                 }
                 var data = {};
+                var index = layList.layer.load(1, {
+                    shade: [0.5,'#fff'] //0.1透明度的白色背景
+                });;
                 $.ajax({
                     url:"{:Url('add_new')}",
                     data:list,
                     type:'post',
                     dataType:'json',
                     success:function(re){
+                        layer.close(index);
                         if(re.code == 200){
                             data[re.data] = list;
                             $('.type-all>.active>.new-id').val(re.data);
                             $eb.message('success',re.msg);
+                            location.reload();
                             setTimeout(function (e) {
                                 parent.$(".J_iframe:visible")[0].contentWindow.location.reload();
+
 //                                parent.layer.close(parent.layer.getFrameIndex(window.name));
                             },600)
                         }else{
                             $eb.message('error',re.msg);
                         }
+                    },
+                    error:function () {
+                        layer.close(index);
                     }
                 })
             });

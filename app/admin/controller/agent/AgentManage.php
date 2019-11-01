@@ -26,7 +26,7 @@ class AgentManage extends AuthController
      */
     public function index()
     {
-        $this->assign( 'year',getMonth('y'));
+        $this->assign( 'year',getMonth());
         $this->assign('store_brokerage_statu',\crmeb\services\SystemConfigService::get('store_brokerage_statu'));
         return $this->fetch();
     }
@@ -64,7 +64,7 @@ class AgentManage extends AuthController
     public function stair($uid = ''){
         if($uid == '') return $this->failed('参数错误');
         $this->assign('uid',$uid ? : 0);
-        $this->assign( 'year',getMonth('y'));
+        $this->assign( 'year',getMonth());
         return $this->fetch();
     }
     /*
@@ -75,7 +75,7 @@ class AgentManage extends AuthController
     {
         if($uid == '') return $this->failed('参数错误');
         $this->assign('uid',$uid ? : 0);
-        $this->assign( 'year',getMonth('y'));
+        $this->assign( 'year',getMonth());
         return $this->fetch();
     }
 
@@ -211,7 +211,7 @@ class AgentManage extends AuthController
         if(!$imageInfo){
             $res = \app\models\routine\RoutineCode::getShareCode($uid, 'spread', '', '');
             if(!$res) throw new \think\Exception('二维码生成失败');
-            $imageInfo = UploadService::imageStream($name,$res['res'],'routine/spread/code');
+            $imageInfo = UploadService::getInstance()->setUploadPath('routine/spread/code')->imageStream($name,$res['res']);
             if(!is_array($imageInfo)) return $imageInfo;
             SystemAttachment::attachmentAdd($imageInfo['name'],$imageInfo['size'],$imageInfo['type'],$imageInfo['dir'],$imageInfo['thumb_path'],1,$imageInfo['image_type'],$imageInfo['time']);
             RoutineQrcode::setRoutineQrcodeFind($res['id'],['status'=>1,'time'=>time(),'qrcode_url'=>$imageInfo['dir']]);
@@ -246,7 +246,7 @@ class AgentManage extends AuthController
             if(!$imageInfo){
                 $res = \app\models\routine\RoutineCode::getShareCode($uid, 'spread', '', '');
                 if(!$res) return JsonService::fail('二维码生成失败');
-                $imageInfo = UploadService::imageStream($name,$res['res'],'routine/spread/code');
+                $imageInfo = UploadService::getInstance()->setUploadPath('routine/spread/code')->imageStream($name,$res['res']);
                 if(!is_array($imageInfo)) return JsonService::fail($imageInfo);
                 SystemAttachment::attachmentAdd($imageInfo['name'],$imageInfo['size'],$imageInfo['type'],$imageInfo['dir'],$imageInfo['thumb_path'],1,$imageInfo['image_type'],$imageInfo['time']);
                 RoutineQrcode::setRoutineQrcodeFind($res['id'],['status'=>1,'time'=>time(),'qrcode_url'=>$imageInfo['dir']]);

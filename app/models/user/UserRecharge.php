@@ -40,13 +40,27 @@ class UserRecharge extends BaseModel
         return time();
     }
 
+    /**
+     * 创建充值订单
+     * @param $uid
+     * @param $price
+     * @param string $recharge_type
+     * @param int $paid
+     * @return UserRecharge|bool|\think\Model
+     */
     public static function addRecharge($uid,$price,$recharge_type = 'weixin',$paid = 0)
     {
         $order_id = self::getNewOrderId($uid);
+        if(!$order_id) return self::setErrorInfo('订单生成失败！');
         $add_time = time();
         return self::create(compact('order_id','uid','price','recharge_type','paid','add_time'));
     }
 
+    /**
+     * 生成充值订单号
+     * @param int $uid
+     * @return bool|string
+     */
     public static function getNewOrderId($uid = 0)
     {
         if(!$uid) return false;
@@ -54,6 +68,12 @@ class UserRecharge extends BaseModel
         return 'wx' . date('YmdHis', time()) . (10000 + $count + $uid);
     }
 
+    /**
+     * 充值js支付
+     * @param $orderInfo
+     * @return array|string
+     * @throws \Exception
+     */
     public static function jsPay($orderInfo)
     {
         return MiniProgramService::jsPay(WechatUser::uidToOpenid($orderInfo['uid']),$orderInfo['order_id'],$orderInfo['price'],'user_recharge','用户充值');
@@ -95,14 +115,20 @@ class UserRecharge extends BaseModel
         $res3 = User::edit(['now_money'=>bcadd($user['now_money'],$order['price'],2)],$order['uid'],'uid');
         $res = $res1 && $res2 && $res3;
         self::checkTrans($res);
+        event('RechargeSuccess', [$order]);
         return $res;
     }
 
-    /*
+    /**
      * 导入佣金到余额
-     * @param int uid 用户uid
-     * @param string $price 导入金额
-     * */
+     * @param $uid 用户uid
+     * @param $price 导入金额
+     * @return bool
+     * @throws \think\Exception
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public static function importNowMoney($uid,$price){
         $user = User::getUserInfo($uid);
         self::beginTrans();
@@ -113,6 +139,9 @@ class UserRecharge extends BaseModel
             $res2 = UserBill::expend('用户佣金转入余额',$uid,'now_money','recharge',$price,0,$user['now_money'],'成功转入余额'.floatval($price).'元');
             $res = $res2 && $res1 && $res3;
             self::checkTrans($res);
+            if($res){
+                event('ImportNowMoney', [$uid, $price]);
+            }
             return $res;
         }catch (\Exception $e){
             self::rollbackTrans();

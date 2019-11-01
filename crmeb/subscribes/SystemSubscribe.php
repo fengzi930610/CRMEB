@@ -6,6 +6,7 @@ use app\admin\model\system\SystemLog;
 /**
  * 后台系统事件
  * Class SystemSubscribe
+ * @package crmeb\subscribes
  */
 class SystemSubscribe
 {
