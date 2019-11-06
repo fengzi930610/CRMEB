@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: lianghuan
- * Date: 2018-03-03
- * Time: 16:47
+ * Date: 2019年11月6日 15:06:29
  */
 namespace app\admin\model\user;
 

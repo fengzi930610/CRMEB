@@ -3,11 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {$title}</title>
-    <meta name="keywords" content="CRMEB-500错误页面">
-    <meta name="description" content="CRMEB 500错误页面">
+    <title> 服务器内部错误</title>
 
-    <link rel="shortcut icon" href="favicon.ico">
     <link href="{__FRAME_PATH}css/bootstrap.min.css" rel="stylesheet">
     <link href="{__FRAME_PATH}css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="{__FRAME_PATH}css/style.min.css?v=4.1.0" rel="stylesheet">
@@ -21,7 +18,7 @@
 
     <div class="error-desc">
         服务器好像出错了...
-        <p>{$msg}</p>
+        <!-- <p>{$msg}</p> -->
     </div>
 </div>
 

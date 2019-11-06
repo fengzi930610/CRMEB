@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/4/16 0016
- * Time: 10:39
+ * Date: 2019年11月6日 14:33:03
  */
 
 namespace app\admin\controller\record;

@@ -142,7 +142,7 @@ class StoreProduct extends AuthController
             Form::input('store_name','产品名称')->col(Form::col(24)),
             Form::input('store_info','产品简介')->type('textarea'),
             Form::input('keyword','产品关键字')->placeholder('多个用英文状态下的逗号隔开'),
-            Form::input('unit_name','产品单位','件')->col(Form::col(12)),
+            Form::input('unit_name','产品单位','台')->col(Form::col(12)),
             Form::input('bar_code','产品条码','')->placeholder('请输入商品条形码')->col(Form::col(12)),
             Form::frameImageOne('image','产品主图片(305*305px)',Url::buildUrl('admin/widget.images/index',array('fodder'=>'image')))->icon('image')->width('100%')->height('500px'),
             Form::frameImages('slider_image','产品轮播图(640*640px)',Url::buildUrl('admin/widget.images/index',array('fodder'=>'slider_image')))->maxLength(5)->icon('images')->width('100%')->height('500px')->spin(0),
@@ -156,12 +156,12 @@ class StoreProduct extends AuthController
             Form::number('cost','产品成本价')->min(0)->col(8),
             Form::number('sort','排序')->col(8),
             Form::radio('is_show','产品状态',0)->options([['label'=>'上架','value'=>1],['label'=>'下架','value'=>0]])->col(8),
-            Form::radio('is_hot','热卖单品',0)->options([['label'=>'是','value'=>1],['label'=>'否','value'=>0]])->col(8),
+            Form::radio('is_hot','热卖单品',1)->options([['label'=>'是','value'=>1],['label'=>'否','value'=>0]])->col(8),
             Form::radio('is_benefit','促销单品',0)->options([['label'=>'是','value'=>1],['label'=>'否','value'=>0]])->col(8),
-            Form::radio('is_best','精品推荐',0)->options([['label'=>'是','value'=>1],['label'=>'否','value'=>0]])->col(8),
+            Form::radio('is_best','精品推荐',1)->options([['label'=>'是','value'=>1],['label'=>'否','value'=>0]])->col(8),
             Form::radio('is_new','首发新品',0)->options([['label'=>'是','value'=>1],['label'=>'否','value'=>0]])->col(8),
             Form::radio('is_postage','是否包邮',0)->options([['label'=>'是','value'=>1],['label'=>'否','value'=>0]])->col(8),
-            Form::radio('is_good','是否优品推荐',0)->options([['label'=>'是','value'=>1],['label'=>'否','value'=>0]])->col(8),
+            Form::radio('is_good','是否优品推荐',1)->options([['label'=>'是','value'=>1],['label'=>'否','value'=>0]])->col(8),
         ];
         $form = Form::make_post_form('添加产品',$field,Url::buildUrl('save'),2);
         $this->assign(compact('form'));

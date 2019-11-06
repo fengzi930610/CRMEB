@@ -1,8 +1,6 @@
 <?php
 /**
- * Created by CRMEB.
- * User: 136327134@qq.com
- * Date: 2019/4/9 16:50
+ * Date: 2019年11月6日 15:55:19
  */
 
 namespace crmeb\traits;

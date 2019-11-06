@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: xurongyao <763569752@qq.com>
- * Date: 2018/6/14 下午5:25
- */
-
 namespace app\admin\controller\finance;
 
 use app\admin\controller\AuthController;

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lianghuan
- * Date: 2018-03-03
- * Time: 16:37
- */
 namespace app\admin\controller\finance;
 
 use app\admin\controller\AuthController;

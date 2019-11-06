@@ -1,8 +1,6 @@
 <?php
 /**
- *
- * @author: xaboy<365615158@qq.com>
- * @day: 2017/12/18
+ * @day: 2019年11月6日 15:54:47
  */
 
 namespace crmeb\subscribes;

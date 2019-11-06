@@ -1,7 +1,6 @@
 <?php
 /**
- * @author: xaboy<365615158@qq.com>
- * @day: 2017/11/13
+ * @day: 2019年11月6日 14:40:14
  */
 
 namespace app\admin\model\system;

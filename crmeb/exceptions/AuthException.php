@@ -1,14 +1,11 @@
 <?php
 
-
 namespace crmeb\exceptions;
-
 
 use Throwable;
 
 /**
  * Class AuthException
- * @package crmeb\exceptions
  */
 class AuthException extends \RuntimeException
 {

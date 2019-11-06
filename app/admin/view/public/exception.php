@@ -14,7 +14,7 @@
     <div class="error-page-container">
         <div class="error-page-main">
             <h3>
-                <strong>404</strong>{$msg}
+                <strong>404</strong><!-- {$msg} -->
             </h3>
             <div class="error-page-actions">
                 <div>

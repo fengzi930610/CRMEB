@@ -9,7 +9,6 @@
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
-    <link rel="shortcut icon" href="/favicon.ico">
     <link href="{__FRAME_PATH}css/bootstrap.min.css" rel="stylesheet">
     <link href="{__FRAME_PATH}css/font-awesome.min.css" rel="stylesheet">
     <link href="{__FRAME_PATH}css/animate.min.css" rel="stylesheet">
@@ -39,8 +38,6 @@
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li><a class="J_menuItem admin_close" href="{:Url('setting.systemAdmin/adminInfo')}">个人资料</a>
-                            </li>
-                            <li><a class="admin_close" target="_blank" href="http://www.crmeb.com/">联系我们</a>
                             </li>
                             <li class="divider"></li>
                             <li><a href="{:Url('Login/logout')}">安全退出</a>
@@ -147,11 +144,6 @@
         <!--内容展示模块-->
         <div class="row J_mainContent" id="content-main">
             <iframe class="J_iframe" name="iframe_crmeb_main" width="100%" height="100%" src="{:Url('Index/main')}" frameborder="0" data-id="{:Url('Index/main')}" seamless></iframe>
-        </div>
-        <!--底部版权-->
-        <div class="footer"  @touchmove.prevent>
-            <div class="pull-right">© 2014-2018 <a href="http://www.crmeb.com/" target="_blank">CRMEB</a>
-            </div>
         </div>
     </div>
     <!--右侧部分结束-->

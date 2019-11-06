@@ -1,8 +1,6 @@
 <?php
 /**
- *
- * @author: xaboy<365615158@qq.com>
- * @day: 2017/12/18
+ * @day: 2019-11-6 15:33:20
  */
 
 namespace app\models\store;

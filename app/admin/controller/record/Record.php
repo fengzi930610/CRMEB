@@ -1,8 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: xurongyao <763569752@qq.com>
- * Date: 2018/6/14 下午5:25
+ * Date: 2019年11月6日 14:32:41
  */
 
 namespace app\admin\controller\record;

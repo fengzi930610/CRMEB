@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by CRMEB.
- * Copyright (c) 2017~2019 http://www.crmeb.com All rights reserved.
- * Author: liaofei <136327134@qq.com>
- * Date: 2019/3/27 21:44
+ * Date: 2019年11月6日 15:35:56
  */
 namespace app\models\user;
 

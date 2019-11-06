@@ -1,7 +1,6 @@
 <?php
 /**
- * @author: xaboy<365615158@qq.com>
- * @day: 2017/12/09
+ * @day: 2019年11月6日 15:05:27
  */
 
 namespace app\admin\model\ump;

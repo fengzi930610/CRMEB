@@ -1,8 +1,6 @@
 <?php
 /**
- * Project: 快速复制 淘宝、天猫、1688、京东 商品到CRMEB系统
- * Author: 有一片天 <810806442@qq.com>  微信：szktor
- * Date: 2019-04-25
+ * Date: 2019年11月6日 14:33:54
  */
 
 namespace app\admin\controller\store;

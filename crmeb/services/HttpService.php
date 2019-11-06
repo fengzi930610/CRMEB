@@ -1,9 +1,6 @@
 <?php
 /**
- *
- * @author: xaboy<365615158@qq.com>
- * @day: 2017/11/23
- */
+ * @day: 2017/11/232019-11-6 15:48:20
 namespace crmeb\services;
 
 class HttpService
