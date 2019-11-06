@@ -44,7 +44,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="logo-element">CB
+                    <div class="logo-element">
                     </div>
                 </li>
                 <!--  菜单  -->
