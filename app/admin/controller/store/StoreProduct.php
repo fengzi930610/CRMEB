@@ -71,7 +71,7 @@ class StoreProduct extends AuthController
             ['store_name',''],
             ['cate_id',''],
             ['excel',0],
-            ['order',''],
+            ['order','id desc'],
             ['type',$this->request->param('type')]
         ]);
         return JsonService::successlayui(ProductModel::ProductList($where));
